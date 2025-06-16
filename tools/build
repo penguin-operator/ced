@@ -1,0 +1,6 @@
+#!/bin/sh
+for mod in `ls src/mods/*.c`; do
+	out=`echo $mod | cut -d. -f1 | cut -d/ -f3`
+	gcc $mod -omods/lib$out.so -Isrc -O0 -shared -g
+done
+gcc src/**.c -o$BIN -Isrc -O0 -g
