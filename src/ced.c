@@ -5,9 +5,9 @@ struct ced ced = {
 };
 
 void ced_preload(char *modspath) {
-	DIR* mods = opendir(modspath);
+	DIR *mods = opendir(modspath);
 	struct dirent *entry;
-	char* period;
+	char *period;
 	for (; (entry = readdir(mods)) ;) {
 		period = strchr(entry->d_name, '.');
 		if (!period) continue;
@@ -16,7 +16,7 @@ void ced_preload(char *modspath) {
 			*period = 0;
 			int i = mod.len(ced.mods);
 			ced.mods = realloc(ced.mods, sizeof(mod_t)*(i+2));
-			mod.load(ced.mods+i, entry->d_name+3);
+			mod.load(ced.mods+i, modspath, entry->d_name+3);
 		}
 	}
 	closedir(mods);

@@ -1,6 +1,13 @@
 #!/bin/sh
 for mod in `ls src/mods/*.c`; do
 	out=`echo $mod | cut -d. -f1 | cut -d/ -f3`
-	gcc $mod -omods/lib$out.so -Isrc -O0 -shared -g
+	gcc $mod -omods/lib$out.so -shared -fpic -Isrc -O0 -g
+	[ $? -eq 0 ] || exit $?
 done
-gcc src/**.c -o$BIN -Isrc -O0 -g
+gcc src/**/*.c -o$BIN -rdynamic -Isrc -O0 -g >/dev/null
+# ^ works only outside of this script
+# i have no idea why
+# please message me in discord
+# https://discordapp.com/users/832999014693732383
+# thanks!
+[ $? -eq 0 ] || exit $?

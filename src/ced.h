@@ -2,6 +2,7 @@
 
 #include <dirent.h>
 #include <string.h>
+#include <termios.h>
 #include <mod.h>
 
 struct ced {
